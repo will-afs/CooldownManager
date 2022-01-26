@@ -4,13 +4,14 @@ import time
 import toml
 import threading
 from singleton_decorator import singleton
+import sys
 
 
 @singleton
 class CoolDownManager():
     def __init__(self):
-        self._cooldown_needed = False
         project_config = toml.load('project_config.toml')
+        self._cooldown_needed = False
         self._cooldown_delay = project_config['time']['countdown_delay']
         self._time_step = project_config['time']['time_step']
 
@@ -49,17 +50,19 @@ if __name__ == '__main__':
     run_thread.start()
     print('Started run_thread\n')
 
-    start_date = time.time()
-
     # First token is returned directly : no need to cooldown at first
-    print('Asking for first token at {} s'.format(round(time.time()-start_date, 2)))
+    print('Asking for first token ...')
+    request_time = time.time()
     cooldownmanager.get_token()
-    print('Obtained first token at {} s\n'.format(round(time.time()-start_date, 2)))
+    response_time = time.time()
+    print('Obtained first token after {} s\n'.format(round(response_time-request_time, 2)))
 
     # Second token cannot be returned directly : need to respect cooldown delay
-    print('Asking for second token at {} s'.format(round(time.time()-start_date, 2)))
+    print('Asking for second token ...')
+    request_time = time.time()
     cooldownmanager.get_token()
-    print('Obtained second token at {} s\n'.format(round(time.time()-start_date, 2)))
+    response_time = time.time()
+    print('Obtained first token after {} s\n'.format(round(response_time-request_time, 2)))
 
     print('Joining run thread')
     run_thread.join(timeout=0) # Do not wait for run_thread to end before destroying it (infinite while loop)
