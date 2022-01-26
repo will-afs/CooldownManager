@@ -12,7 +12,7 @@ class TestCoolDownManager(unittest.TestCase):
         self.cooldownmanager = CoolDownManager()
         project_config = toml.load("project_config.toml")
         self.ref_cooldown_delay = project_config["time"]["countdown_delay"]
-        self.tolerance = project_config["time"]["tolerance"]
+        self.compute_tolerance = project_config["time"]["compute_related_tolerance"]
 
     def test_init(self):
         self.assertEqual(self.cooldownmanager._cooldown_delay, self.ref_cooldown_delay)
@@ -23,7 +23,7 @@ class TestCoolDownManager(unittest.TestCase):
         time_1 = time.time()
         self.assertGreaterEqual(time_1 - time_0, self.ref_cooldown_delay)
         self.assertAlmostEqual(
-            time_1 - time_0, self.ref_cooldown_delay, delta=self.tolerance
+            time_1 - time_0, self.ref_cooldown_delay, delta=self.compute_tolerance
         )
 
     def test_get_token(self):
@@ -39,7 +39,9 @@ class TestCoolDownManager(unittest.TestCase):
         # no cooldown needed : token should be returned directly
         self.assertEqual(token_1, True)
         self.assertAlmostEqual(
-            float(time_1 - time_0), float(0), delta=float(self.tolerance)
+                                time_1 - time_0,
+                                0.0,
+                                delta=self.compute_tolerance
         )
 
         # cooldown needed : token should only be returned after cooldown delay
@@ -55,5 +57,5 @@ class TestCoolDownManager(unittest.TestCase):
         self.assertEqual(token_2, True)
         self.assertGreaterEqual(time_3 - time_1, self.ref_cooldown_delay)
         self.assertAlmostEqual(
-            time_3 - time_1, self.ref_cooldown_delay, delta=self.tolerance
+            time_3 - time_1, self.ref_cooldown_delay, delta=self.compute_tolerance
         )

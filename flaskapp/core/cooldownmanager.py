@@ -19,6 +19,14 @@ class CoolDownManager:
         self._cooldown_needed = False
         print("Refreshed !")
 
+    def _run(self):
+        while True:
+            if self._cooldown_needed is True:
+                print("Cooldown needed")
+                self._cooldown()
+            else:
+                time.sleep(self._time_step)
+
     def get_token(self) -> bool:
         if self._cooldown_needed is False:
             self._cooldown_needed = True
@@ -30,14 +38,6 @@ class CoolDownManager:
                 while self._cooldown_needed is True:
                     time.sleep(self._time_step)
             return self.get_token()
-
-    def _run(self):
-        while True:
-            if self._cooldown_needed is True:
-                print("Cooldown needed")
-                self._cooldown()
-            else:
-                time.sleep(self._time_step)
 
 
 if __name__ == "__main__":
