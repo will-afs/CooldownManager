@@ -16,19 +16,19 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-class ProdConfig(Config):
-    FLASK_ENV = "prod"
+class ProductionConfig(Config):
+    FLASK_ENV = "PROD"
     DEBUG = False
     TESTING = False
 
 
-class DevConfig(Config):
-    FLASK_ENV = "dev"
+class DevelopmentConfig(Config):
+    FLASK_ENV = "DEV"
     DEBUG = True
     TESTING = False
 
 
-class TestConfig(Config):
-    FLASK_ENV = "test"
+class TestingConfig(Config):
+    FLASK_ENV = "TEST"
     DEBUG = True
     TESTING = True

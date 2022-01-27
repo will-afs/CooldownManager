@@ -14,15 +14,15 @@ class CoolDownManager:
         self._time_step = project_config["time"]["time_step"]
 
     def _cooldown(self):
-        print("Cooling down...")
+        # print("Cooling down...")
         time.sleep(self._cooldown_delay)
         self._cooldown_needed = False
-        print("Refreshed !")
+        # print("Refreshed !")
 
     def _run(self):
         while True:
             if self._cooldown_needed is True:
-                print("Cooldown needed")
+                # print("Cooldown needed")
                 self._cooldown()
             else:
                 time.sleep(self._time_step)
@@ -30,11 +30,11 @@ class CoolDownManager:
     def get_token(self) -> bool:
         if self._cooldown_needed is False:
             self._cooldown_needed = True
-            print("Generated token")
+            # print("Generated token")
             return True
         else:
             while self._cooldown_needed is True:
-                print("Waiting for cooldown to generate token...")
+                # print("Waiting for cooldown to generate token...")
                 while self._cooldown_needed is True:
                     time.sleep(self._time_step)
             return self.get_token()

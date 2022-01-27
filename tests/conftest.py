@@ -10,7 +10,7 @@ from flaskapp import create_app
 
 @pytest.fixture
 def app():
-    os.environ["FLASK_ENV"] = "test"  # Equivalent to "export FLASK_ENV=test" in bash
+    os.environ["FLASK_ENV"] = "TEST"  # Equivalent to "export FLASK_ENV=TEST" in bash
 
     app = create_app()
 
