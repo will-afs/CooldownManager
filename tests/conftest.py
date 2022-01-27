@@ -4,15 +4,18 @@ import os
 import tempfile
 
 import pytest
+
 from flaskapp import create_app
+
 
 @pytest.fixture
 def app():
-    os.environ['FLASK_ENV'] = 'test' # Equivalent to "export FLASK_ENV=test" in bash
+    os.environ["FLASK_ENV"] = "test"  # Equivalent to "export FLASK_ENV=test" in bash
 
     app = create_app()
 
     yield app
+
 
 @pytest.fixture
 def client(app):
@@ -21,17 +24,20 @@ def client(app):
     #  server.
     return app.test_client()
 
+
 @pytest.fixture
 def create_app_for_tc(app):
     with app.app_context():
         yield app
 
-@pytest.fixture() #
+
+@pytest.fixture()  #
 def test_client(app):
     """A test client for the app."""
     with app.test_client() as testing_client:
         with app.app_context():
             yield testing_client
+
 
 @pytest.fixture
 def runner(app):

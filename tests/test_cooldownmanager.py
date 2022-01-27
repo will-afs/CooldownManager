@@ -38,11 +38,7 @@ class TestCoolDownManager(unittest.TestCase):
 
         # no cooldown needed : token should be returned directly
         self.assertEqual(token_1, True)
-        self.assertAlmostEqual(
-                                time_1 - time_0,
-                                0.0,
-                                delta=self.compute_tolerance
-        )
+        self.assertAlmostEqual(time_1 - time_0, 0.0, delta=self.compute_tolerance)
 
         # cooldown needed : token should only be returned after cooldown delay
         time_2 = time.time()
