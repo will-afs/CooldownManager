@@ -11,7 +11,7 @@ class TestCoolDownManager(unittest.TestCase):
     def setUp(self):
         self.cooldownmanager = CoolDownManager()
         project_config = toml.load("project_config.toml")
-        self.ref_cooldown_delay = project_config["time"]["countdown_delay"]
+        self.ref_cooldown_delay = project_config["time"]["cooldown_delay"]
         self.compute_tolerance = project_config["time"]["compute_related_tolerance"]
 
     def test_init(self):
@@ -36,20 +36,24 @@ class TestCoolDownManager(unittest.TestCase):
         token_1 = self.cooldownmanager.get_token()
         time_1 = time.time()
 
+        time_2 = time.time()
+        token_2 = self.cooldownmanager.get_token()
+        time_3 = time.time()
+        
+        # Do not wait for run_thread to end before destroying it (infinite while loop)
+        run_thread.join(
+            timeout=0
+        )
+
         # no cooldown needed : token should be returned directly
         self.assertEqual(token_1, True)
         self.assertAlmostEqual(time_1 - time_0, 0.0, delta=self.compute_tolerance)
 
         # cooldown needed : token should only be returned after cooldown delay
-        time_2 = time.time()
-        token_2 = self.cooldownmanager.get_token()
-        time_3 = time.time()
-        run_thread.join(
-            timeout=0
-        )  # Do not wait for run_thread to end before destroying it (infinite while loop)
+        # Assert cooldown delay is not over before running next tests
         self.assertLessEqual(
             time_2 - time_1, self.ref_cooldown_delay
-        )  # Otherwise this test would be pointless
+        )
         self.assertEqual(token_2, True)
         self.assertGreaterEqual(time_3 - time_1, self.ref_cooldown_delay)
         self.assertAlmostEqual(

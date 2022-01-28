@@ -1,5 +1,5 @@
 ["time"]
-countdown_delay = 3
+cooldown_delay = 3
 time_step = 0.1
 compute_related_tolerance = 0.2
 network_related_tolerance = 0.5

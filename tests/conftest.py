@@ -1,7 +1,6 @@
 """"This file contains setup functions called fixtures that each test will use"""
 
 import os
-import tempfile
 
 import pytest
 
@@ -25,18 +24,18 @@ def client(app):
     return app.test_client()
 
 
-@pytest.fixture
-def create_app_for_tc(app):
-    with app.app_context():
-        yield app
+# @pytest.fixture
+# def create_app_for_tc(app):
+#     with app.app_context():
+#         yield app
 
 
-@pytest.fixture()  #
-def test_client(app):
-    """A test client for the app."""
-    with app.test_client() as testing_client:
-        with app.app_context():
-            yield testing_client
+# @pytest.fixture()  #
+# def test_client(app):
+#     """A test client for the app."""
+#     with app.test_client() as testing_client:
+#         with app.app_context():
+#             yield testing_client
 
 
 @pytest.fixture
