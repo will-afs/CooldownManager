@@ -21,7 +21,8 @@ def get_token(client, path, i, request_times, responses, response_times):
     response_times[i] = time.time()
     return
 
-def test_get_token_view(client): #app, 
+
+def test_get_token_view(client):  # app,
     n_requests = 2
     threads = [None] * n_requests
     request_times = [None] * n_requests
@@ -30,14 +31,21 @@ def test_get_token_view(client): #app,
     for i in range(0, n_requests):
         threads[i] = threading.Thread(
             target=get_token,
-            args=(client, "/", i, request_times, responses, response_times), #clients[i]
+            args=(
+                client,
+                "/",
+                i,
+                request_times,
+                responses,
+                response_times,
+            ),  # clients[i]
             daemon=True,
         )
 
     for i in range(0, n_requests):
         # Dedicated loop in order to start the threads approximately at the same time
         threads[i].start()
-        time.sleep(0.5) # to make sure clients send their request in the right order
+        time.sleep(0.5)  # to make sure clients send their request in the right order
 
     for i in range(0, n_requests):
         # Dedicated loop in order to end the threads approximately at the same time
@@ -49,5 +57,5 @@ def test_get_token_view(client): #app,
     # By default, a Flask server can only handle requests one by one
     assert abs(response_times[1] - response_times[0]) >= ref_cooldown_delay
     assert abs(response_times[1] - response_times[0]) == pytest.approx(
-            ref_cooldown_delay, abs=network_related_tolerance
-        )
+        ref_cooldown_delay, abs=network_related_tolerance
+    )

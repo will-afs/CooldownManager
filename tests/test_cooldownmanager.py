@@ -15,8 +15,12 @@ class TestCoolDownManager(unittest.TestCase):
         self.compute_tolerance = project_config["time"]["compute_related_tolerance"]
 
     def test_init(self):
-        self.assertEqual(type(self.cooldownmanager._cooldown_lock), type(threading.Lock()))
-        self.assertEqual(type(self.cooldownmanager._get_token_lock), type(threading.Lock()))
+        self.assertEqual(
+            type(self.cooldownmanager._cooldown_lock), type(threading.Lock())
+        )
+        self.assertEqual(
+            type(self.cooldownmanager._get_token_lock), type(threading.Lock())
+        )
         self.assertEqual(self.cooldownmanager._cooldown_delay, self.ref_cooldown_delay)
         self.assertEqual(self.cooldownmanager._cooldown_needed, False)
         self.assertEqual(self.cooldownmanager._stopping, False)
@@ -30,13 +34,13 @@ class TestCoolDownManager(unittest.TestCase):
         self.assertAlmostEqual(
             time_1 - time_0, self.ref_cooldown_delay, delta=self.compute_tolerance
         )
-    
+
     def test_start_stop(self):
         self.cooldownmanager.start()
         assert self.cooldownmanager._run_thread
         self.cooldownmanager.stop()
         assert not self.cooldownmanager._run_thread
-        
+
         self.cooldownmanager.start()
         assert self.cooldownmanager._run_thread
         assert self.cooldownmanager.get_token()
@@ -62,9 +66,7 @@ class TestCoolDownManager(unittest.TestCase):
 
         # cooldown needed : token should have only been returned after cooldown delay
         # Assert cooldown delay is not over before running next tests
-        self.assertLessEqual(
-            time_2 - time_1, self.ref_cooldown_delay
-        )
+        self.assertLessEqual(time_2 - time_1, self.ref_cooldown_delay)
         self.assertEqual(token_2, True)
         self.assertGreaterEqual(time_3 - time_1, self.ref_cooldown_delay)
         self.assertAlmostEqual(

@@ -34,15 +34,13 @@ class CoolDownManager:
                 time.sleep(self._time_step)
         if self._cooldown_needed:
             self._cooldown()
-        
-    def start(self) :
+
+    def start(self):
         if not self._run_thread:
-            self._run_thread = threading.Thread(
-                target=self._run, args=(), daemon=True
-            )
+            self._run_thread = threading.Thread(target=self._run, args=(), daemon=True)
             self._run_thread.start()
 
-    def stop(self) :
+    def stop(self):
         if self._run_thread and self._run_thread.is_alive():
             self._stopping = True
             self._run_thread.join()
@@ -55,13 +53,13 @@ class CoolDownManager:
                 if self._cooldown_needed is False:
                     self._cooldown_needed = True
                 else:
-                    while self._run_thread and self._cooldown_needed :
+                    while self._run_thread and self._cooldown_needed:
                         time.sleep(self._time_step)
                     self._cooldown_needed = True
                 # print("Generated token")
                 return True
             else:
-                return False            
+                return False
 
 
 if __name__ == "__main__":
@@ -74,24 +72,25 @@ if __name__ == "__main__":
 
     # First token is returned directly : no need to cooldown at first
     get_token_threads = []
-    request_times = [None]*2
-    response_times = [None]*2
-    for i in range(0,2):
-        get_token_threads.append(threading.Thread(target=cooldownmanager.get_token, args=()))
+    request_times = [None] * 2
+    response_times = [None] * 2
+    for i in range(0, 2):
+        get_token_threads.append(
+            threading.Thread(target=cooldownmanager.get_token, args=())
+        )
 
-    for i in range(0,2):
+    for i in range(0, 2):
         print("Asking for token n°{}...".format(i))
         request_times[i] = time.time()
         get_token_threads[i].start()
 
-    for i in range(0,2):
+    for i in range(0, 2):
         get_token_threads[i].join()
         response_times[i] = time.time()
-        print("Obtained token n°{} after {} s ...".format(
-                i,
-                round(response_times[i] - request_times[i], 2)
+        print(
+            "Obtained token n°{} after {} s ...".format(
+                i, round(response_times[i] - request_times[i], 2)
             )
         )
-    
-    cooldownmanager.stop()
 
+    cooldownmanager.stop()
