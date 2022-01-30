@@ -9,11 +9,7 @@ bp = Blueprint("core", __name__, url_prefix="/")
 app = Flask(__name__)
 
 cooldownmanager = CoolDownManager()
-cooldownmanager.run_thread = threading.Thread(
-    target=cooldownmanager._run, args=(), daemon=True
-)
-cooldownmanager.run_thread.start()
-
+cooldownmanager.start()
 
 @bp.route("/", methods=["GET"])
 def get_token():
