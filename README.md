@@ -1,6 +1,7 @@
 # CooldownManager
-REST Microservice to respect a cooldown between each call
+REST Microservice to respect a cooldown between each call.
 
+More info on this solution on [this post](https://www.linkedin.com/feed/update/urn:li:activity:6893219171723816960/)
 
 Installing the project on your machine
 --------------------------------------
@@ -32,4 +33,4 @@ Running tests
 -------------
 The tests are placed in the tests folder. They can be ran with pytests, as follows :
 
-     python -m pytest tests
+    python -m pytest tests
