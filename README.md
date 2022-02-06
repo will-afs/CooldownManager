@@ -1,6 +1,8 @@
 # <img src="https://github.com/will-afs/AdvancedAcademicProject/blob/main/doc/CooldownManager.png" width="30"> CooldownManager
 Make your processes respect a cooldown between each call to this REST Microservice
 
+<img src="https://github.com/will-afs/CooldownManager/blob/main/doc/CooldownManager%20sequence%20diagram.JPG" width="700">
+
 More info on this solution on 👉 [this post](https://www.linkedin.com/feed/update/urn:li:activity:6893219171723816960/) 👈
 
 This is a sub-project of the [AdvancedAcademicProject](https://github.com/will-afs/AdvancedAcademicProject/)
