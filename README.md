@@ -1,4 +1,4 @@
-# ⌛ CooldownManager
+# <img src="https://github.com/will-afs/AdvancedAcademicProject/blob/main/doc/CooldownManager.png" width="30"> CooldownManager
 REST Microservice to respect a cooldown between each call.
 
 More info on this solution on 👉 [this post](https://www.linkedin.com/feed/update/urn:li:activity:6893219171723816960/) 👈
