@@ -27,7 +27,7 @@ Then build the Docker image :
 ---------
 You can now run the Docker image as a container :
 
-    docker run -d -p 80:80 cooldownmanager
+    sudo docker run -d -p 80:80 cooldownmanager
 
 By default, the microservice will run at the following address : http://172.17.0.2:80/
 
