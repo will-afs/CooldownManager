@@ -27,13 +27,13 @@ Then build the Docker image :
 ---------
 You can now run the Docker image as a container :
 
-    docker run cooldownmanager
+    docker run -d -p 80:80 cooldownmanager
 
-By default, the microservice will run at the following address : http://172.17.0.2:5000/
+By default, the microservice will run at the following address : http://172.17.0.2:80/
 
 You can request it, for instance from a terminal :
 
-    curl http://172.17.0.2:5000/
+    curl http://172.17.0.2:80/
 
 You can also give a try to send concurrent requests from different terminals.
 By default, the cooldown delay is set to 3 seconds, in the project_config.toml file.
