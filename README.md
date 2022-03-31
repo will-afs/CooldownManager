@@ -39,6 +39,10 @@ You can also give a try to send concurrent requests from different terminals.
 By default, the cooldown delay is set to 3 seconds, in the project_config.toml file.
 So you should experiment this delay when running concurrent requests as mentionned above.
 
+(optionnal) Pushing the Docker image to your registry :
+
+    sudo docker push <your_docker_user_name>/cooldownmanager
+    
 🧪 Running tests
 -----------------
 The tests are placed in the tests folder. They can be ran with pytests, as follows :
