@@ -17,7 +17,7 @@ The Flask configuration holds into the config.py file.
 ------------------------------------------
 In a terminal, run the following command :
 
-    git clone https://github.com/will-afs/PYTDelivery.git
+    git clone https://github.com/will-afs/cooldownmanager.git
 
 Then build the Docker image :
 
@@ -29,9 +29,11 @@ You can now run the Docker image as a container :
 
     sudo docker run -d -p 80:80 cooldownmanager
 
-By default, the microservice will run at the following address : http://172.17.0.2:80/
+By default, the container will listen to any IPv4.
 
-You can request it, for instance from a terminal :
+It can be accessed locally at the following address : http://172.17.0.2:80/
+
+It can be requested, for instance from a terminal :
 
     curl http://172.17.0.2:80/
 
