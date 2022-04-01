@@ -13,6 +13,11 @@ The project configuration holds in the project_config.toml file.
 
 The Flask configuration holds into the config.py file.
 
+🐇 Quickly run the service as a container
+-----------------------------------------
+
+    sudo docker run --name cooldownmanager -d -p 80:80 williamafonso/cooldownmanager
+
 🔽 Installing the project on your machine
 ------------------------------------------
 In a terminal, run the following command :
