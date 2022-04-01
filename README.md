@@ -70,7 +70,7 @@ To build a Docker image :
     
 Or if you want to be able to push it to your DockerHub:
 
-    sudo docker build --tag <your_docker_username>/arxivparser .
+    sudo docker build --tag <your_docker_username>/cooldownmanager .
 
 Pushing the Docker image to your registry :
 
