@@ -1,4 +1,4 @@
-# <img src="https://github.com/will-afs/AdvancedAcademicProject/blob/main/doc/CooldownManager.png" width="30"> CooldownManager
+# <img src="https://github.com/will-afs/AdvancedAcademicProject/blob/main/doc/Icons/CooldownManager.png" width="30"> CooldownManager
 Make your processes respect a cooldown between each call to this REST Microservice
 
 <img src="https://github.com/will-afs/CooldownManager/blob/main/doc/CooldownManager%20sequence%20diagram.JPG" width="700">
@@ -9,36 +9,18 @@ This is a sub-project of the [AdvancedAcademicProject](https://github.com/will-a
 
 ⚙️ Configuration
 -----------------
-The project configuration holds in the project_config.toml file.
+The project configuration holds in the [project_config.toml file](https://github.com/will-afs/CooldownManager/blob/main/project_config.toml)
 
-The Flask configuration holds into the config.py file.
+The Flask configuration holds into the [flask_config.py file](https://github.com/will-afs/CooldownManager/blob/main/flask_config.py)
 
 🐇 Quickly run the service as a container
 -----------------------------------------
 
     sudo docker run --name cooldownmanager -d -p 80:80 williamafonso/cooldownmanager
+    
+By default, the container will listen to any IPv4. Thus, it can be accessed locally at the following address : http://172.17.0.2:80/
 
-🔽 Installing the project on your machine
-------------------------------------------
-In a terminal, run the following command :
-
-    git clone https://github.com/will-afs/cooldownmanager.git
-
-Then build the Docker image :
-
-    sudo docker build --tag cooldownmanager .
-
-▶️ Usage
----------
-You can now run the Docker image as a container :
-
-    sudo docker run -d -p 80:80 cooldownmanager
-
-By default, the container will listen to any IPv4.
-
-It can be accessed locally at the following address : http://172.17.0.2:80/
-
-It can be requested, for instance from a terminal :
+So it can directly be tested by sending it a local request :
 
     curl http://172.17.0.2:80/
 
@@ -46,12 +28,54 @@ You can also give a try to send concurrent requests from different terminals.
 By default, the cooldown delay is set to 3 seconds, in the project_config.toml file.
 So you should experiment this delay when running concurrent requests as mentionned above.
 
-(optionnal) Pushing the Docker image to your registry :
+🧪 Developing and running tests
+--------------------------------
+In a terminal, run the following command :
 
-    sudo docker push <your_docker_user_name>/cooldownmanager
+    git clone https://github.com/will-afs/cooldownmanager.git
+
+Go into the cloned repository (stay at the root) - it will be the working directory:
+
+    cd CooldownManager
+
+Add the working directory to the Python PATH environment variable:
+
+    export PYTHONPATH=$(pwd)
     
-🧪 Running tests
------------------
+Create a virtual environment:
+
+    python3 -m venv .venv
+
+Activate the virtual environment:
+    
+    source .venv/bin/activate
+    
+Install the dependencies:
+    
+    pip install -r requirements.txt
+
+Run the main python file:
+
+    python src.arxivparser.core.arxiv_parser.py
+
 The tests are placed in the tests folder. They can be ran with pytests, as follows :
 
     python -m pytest tests
+ 
+🐋 Containerizing the application 
+----------------------------------
+To build a Docker image :
+
+    sudo docker build --tag cooldownmanager .
+    
+Or if you want to be able to push it to your DockerHub:
+
+    sudo docker build --tag <your_docker_username>/arxivparser .
+
+Pushing the Docker image to your registry :
+
+    sudo docker push <your_docker_user_name>/cooldownmanager
+
+You can now run the Docker image as a container :
+
+    sudo docker run -d -p 80:80 cooldownmanager
