@@ -95,14 +95,12 @@ You should now be able to connect to your EC2 instance:
 
     sudo ssh -i <path_to_your_key_pair> ubuntu@<ec2_instance_public_ipv4>
 
-From there, run the service as a container:
-
-    sudo docker run --name cooldownmanager -d -p 80:80 williamafonso/cooldownmanager
+Once connected, deploy and run the service as a container, as specified above
     
-The service should now be able from the internet:
+The service should now be able from the internet (ipv4 example: 15.188.144.230):
 
-    curl "http://15.188.144.230:80/"
+    curl "http://<ec2_instance_public_ipv4>:80/"
 
-You should obtain the following response:
+Which should lead to the following response:
 
     {"message":"authorized"}
