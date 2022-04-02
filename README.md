@@ -79,3 +79,30 @@ Pushing the Docker image to your registry :
 You can now run the Docker image as a container :
 
     sudo docker run -d -p 80:80 cooldownmanager
+
+☁️ Deploying on EC2
+--------------------
+
+Create an AWS EC2 instance (ideally Ubuntu Server 20.04 LTS) - keep your KeyPair.pem file safe !
+
+Configure Security Group so that the machine is reachable via SSH and HTTP
+    
+By default, permissions on the keypair.pem file are too open and must be restricted:
+
+    chmod 600 <path_to_your_key_pair>
+
+You should now be able to connect to your EC2 instance:
+
+    sudo ssh -i <path_to_your_key_pair> ubuntu@<ec2_instance_public_ipv4>
+
+From there, run the service as a container:
+
+    sudo docker run --name cooldownmanager -d -p 80:80 williamafonso/cooldownmanager
+    
+The service should now be able from the internet:
+
+    curl "http://15.188.144.230:80/"
+
+You should obtain the following response:
+
+    {"message":"authorized"}
